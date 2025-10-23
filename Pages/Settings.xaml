@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"  
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"  
+            x:Class="FoodBuilder.Pages.Settings"  
+            Title="Settings"  
+            BackgroundColor="{DynamicResource PageBackgroundColor}">  
+  <ContentPage.Content>  
+      <Grid>  
+          <Label Text="Paramètres"  
+                 VerticalOptions="Center"  
+                 HorizontalOptions="Center" />  
+          <Label Text="Voici vos paramètres"
+                 FontSize="18"
+                 HorizontalOptions="Center" />
+      </Grid>  
+  </ContentPage.Content>  
+</ContentPage>
