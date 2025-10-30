@@ -54,3 +54,12 @@ TestResult.xml
 nunit-*.xml
 
 .env
+
+# IDE
+.vs/
+*.user
+*.suo
+
+# Build
+bin/
+obj/
