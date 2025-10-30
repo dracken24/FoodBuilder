@@ -1,5 +1,8 @@
 ﻿using Microsoft.Extensions.Logging;
-using Supabase;
+using Microsoft.Extensions.DependencyInjection;
+using FoodBuilder.Config;
+using FoodBuilder.Services;
+using System;
 
 namespace FoodBuilder
 {
@@ -15,18 +18,23 @@ namespace FoodBuilder
 					fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
 					fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
 				});
-				
-			// Configuration de Supabase
-			string? url = Environment.GetEnvironmentVariable("SUPABASE_URL");
-			string? key = Environment.GetEnvironmentVariable("SUPABASE_KEY");
-			SupabaseOptions options = new SupabaseOptions
+
+			// Enregistrement des services Firebase/Firestore
+			builder.Services.AddSingleton(new HttpClient
 			{
-				AutoRefreshToken = true,
-				AutoConnectRealtime = true,
-				// SessionHandler = new SupabaseSessionHandler() <-- This must be implemented by the developer
-			};
-			// Note the creation as a singleton.
-			builder.Services.AddSingleton(provider => new Supabase.Client(url, key, options));
+				Timeout = TimeSpan.FromSeconds(30)
+			});
+			builder.Services.AddSingleton(provider =>
+			{
+				HttpClient http = provider.GetRequiredService<HttpClient>();
+				return new FirebaseAuthService(http, FirebaseConfig.ApiKey);
+			});
+			builder.Services.AddSingleton(provider =>
+			{
+				HttpClient http = provider.GetRequiredService<HttpClient>();
+				FirebaseAuthService auth = provider.GetRequiredService<FirebaseAuthService>();
+				return new FirestoreService(http, FirebaseConfig.ProjectId, auth);
+			});
 
 #if DEBUG
 			builder.Logging.AddDebug();

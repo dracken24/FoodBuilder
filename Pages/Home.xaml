@@ -1,22 +1,79 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"  
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="FoodBuilder.Pages.Home"
-             Title="Home">
-    <ContentPage.Content>
-        <ScrollView>
-            <VerticalStackLayout Spacing="25" Padding="30,0"
-                             VerticalOptions="Center">
-                <Label Text="Bienvenue sur FoodBuilder"
-                   FontSize="32"
-                   HorizontalOptions="Center" />
-                <Label Text="Vous pouvez créer vos propres recettes et les partager avec vos amis"
-                   FontSize="18"
-                   HorizontalOptions="Center" />
-                <!-- <Button Text="Créer une recette"
-                   FontSize="18"
-                   HorizontalOptions="Center" /> -->
-            </VerticalStackLayout>
-        </ScrollView>
-    </ContentPage.Content>
+			xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			x:Class="FoodBuilder.Pages.Home"
+			Title="Home">
+	<ContentPage.Content>
+		<ScrollView>
+			<VerticalStackLayout Spacing="25" Padding="30,0">
+                
+				<Label Text="Bienvenue sur FoodBuilder"
+						FontSize="32"
+						VerticalOptions="Start"/>
+
+				<Entry Placeholder="Rechercher une recette"
+						PlaceholderColor="Gray"
+						VerticalOptions="Start"/>
+						
+				<Frame CornerRadius="15"
+						BackgroundColor="#FF61A68E"
+						Padding="0"
+						HasShadow="True">
+                    
+					<HorizontalStackLayout VerticalOptions="Center">
+					
+						<VerticalStackLayout VerticalOptions="Center"
+											Margin="15"
+											WidthRequest="160">
+                        
+							<Label Text="Decouvrez les meilleures"
+									FontSize="14"
+									FontAttributes="Bold"
+									TextColor="#FFF4F4F4"
+									VerticalOptions="Start"/>
+                        
+							<Label Text="recettes de la maison !"
+									FontSize="14"
+									FontAttributes="Bold"
+									TextColor="#FFF4F4F4"
+									VerticalOptions="Start"/>
+                        
+							<Button Text="Explorer"
+									FontSize="16"
+									TextColor="Black"
+									VerticalOptions="End"
+									Margin="10"
+									CornerRadius="25"
+									BackgroundColor="#FFF4F4F4"/>
+                        
+						</VerticalStackLayout>
+					
+						<Image Source="chef_png.png"
+								HeightRequest="135"
+								SemanticProperties.Description="chef"/>
+					</HorizontalStackLayout>
+				</Frame>
+
+				<Label Text="Catégories" FontSize="18" FontAttributes="Bold"/>
+				<FlexLayout Direction="Row" Wrap="Wrap" AlignItems="Start" JustifyContent="Start"
+							BindableLayout.ItemsSource="{Binding Categories}">
+					<BindableLayout.ItemTemplate>
+						<DataTemplate>
+							<Border Stroke="#DDD" StrokeThickness="1" BackgroundColor="#F5F5F5"
+									Padding="4" Margin="2" StrokeShape="RoundRectangle 18">
+								<Border.GestureRecognizers>
+									<TapGestureRecognizer Tapped="OnCategoryTapped" CommandParameter="{Binding .}"/>
+								</Border.GestureRecognizers>
+                                <HorizontalStackLayout Spacing="8" VerticalOptions="Center">
+                                    <Label Text="{Binding Name}" FontSize="14"/>
+								</HorizontalStackLayout>
+							</Border>
+						</DataTemplate>
+					</BindableLayout.ItemTemplate>
+				</FlexLayout>
+
+			</VerticalStackLayout>
+
+		</ScrollView>
+	</ContentPage.Content>
 </ContentPage>
